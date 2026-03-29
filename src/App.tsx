@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Scene } from './components/Scene'
 import { Gundam } from './components/Gundam'
 import { ControlPanel } from './components/ControlPanel'
+import { VirtualJoystick } from './components/VirtualJoystick'
 import { poses } from './constants/poses'
 import { DEFAULT_COLORS } from './types'
 import type { PoseName, ColorConfig } from './types'
@@ -30,6 +31,7 @@ export default function App() {
         colors={colors}
         onColorChange={handleColorChange}
       />
+      <VirtualJoystick />
     </>
   )
 }

@@ -21,7 +21,7 @@ export interface ColorConfig {
   yellow: string
 }
 
-export type PoseName = 'stand' | 'fighting' | 'flying' | 'walking'
+export type PoseName = 'stand' | 'fighting' | 'flying'
 
 export const DEFAULT_COLORS: ColorConfig = {
   primary: '#ffffff',

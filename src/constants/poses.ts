@@ -22,11 +22,4 @@ export const poses: Record<PoseName, JointAngles> = {
     leftHipRotX: 0.2, leftKneeRotX: -0.6,
     rightHipRotX: 0.4, rightKneeRotX: -0.8,
   },
-  walking: {
-    headRotX: 0, headRotY: 0,
-    leftShoulderRotX: 0, leftShoulderRotZ: 0.1, leftElbowRotX: 0,
-    rightShoulderRotX: 0, rightShoulderRotZ: -0.1, rightElbowRotX: 0,
-    leftHipRotX: 0, leftKneeRotX: 0,
-    rightHipRotX: 0, rightKneeRotX: 0,
-  },
 }

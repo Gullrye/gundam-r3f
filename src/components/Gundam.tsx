@@ -107,7 +107,7 @@ export function Gundam({ colors, targetPose, poseName, autoRotate }: GundamProps
     let target: JointAngles
     if (isWalking) {
       target = getWalkAngles(clock.elapsedTime)
-      poseActive.current = 'walking'
+      poseActive.current = poseName
       g.position.y = 1.0 + Math.sin(clock.elapsedTime * 6) * 0.03
     } else {
       target = targetPose

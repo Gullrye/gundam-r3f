@@ -5,8 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 - `pnpm dev` — start dev server (Vite, default port 5173)
-- `pnpm build` — production build, type-check included
+- `pnpm build` — production build (includes type-check)
 - `pnpm preview` — preview production build
+- `npx tsc --noEmit` — run TypeScript type checking
+
+All changes must pass `tsc --noEmit` with zero errors before committing.
 
 No test framework is configured.
 
