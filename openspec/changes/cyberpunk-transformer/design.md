@@ -40,31 +40,22 @@ Unit system: 1 unit = 1 meter. Car body approximately 4.5m long, robot approxima
 
 ### 3. Part hierarchy with explicit pivot objects
 
-**Choice:** Each rotating part is wrapped in a pivot Object3D (empty group) at the rotation origin point. The mesh is offset from the pivot.
-**Why:** Three.js rotation is always around the object's local origin. To rotate the hood around its back edge, the pivot must be at the back edge with the hood mesh offset forward. Without explicit pivots, rotation calculations become complex and error-prone.
+**Choice:** Parts use flat groups with position offsets to encode rotation origins. The `carConfig`/`robotConfig` system stores absolute transforms per part, and the lerp animation handles the transition without requiring explicit pivot wrapper objects.
+**Why:** Three.js rotation is around the local origin. Originally planned explicit pivot Object3D wrappers, but the dual-config approach makes pivots unnecessary — the configs already encode the correct start/end positions and rotations. This simplifies the scene hierarchy and avoids deep nesting.
 **Structure:**
 ```
 TransformerGroup
-  CoreGroup (chassis/waist — telescoping sections)
-    ChassisUpper, ChassisLower
-    NeonRings (independent mesh, hidden in car mode)
-  UpperBodyGroup
-    HoodPivot → Hood (chest)
-    WindshieldPivot → Windshield (chest window)
-    RoofPivot → RoofShell → Head (hidden inside roof)
-    GrillePivot → Grille (face mask)
-    Headlights (eyes)
-    ShoulderWheels + FenderConnectors (left/right)
-  LeftArmGroup / RightArmGroup (symmetric)
-    DoorUpperPivot → DoorUpper (upper arm)
-    ElbowJoint
-    DoorLowerPivot → DoorLower (forearm)
-    ExhaustPipe (weapon)
-  LeftLegGroup / RightLegGroup (symmetric)
-    TrunkHalf (left/right)
-    SideSkirt
-    RearWheel (foot)
-  NeonEffectsGroup (independent layer)
+  BodyGroup (tracked by body ref, idle animation target)
+    ChassisUpper, ChassisLower (telescoping)
+    Hood, Windshield, RoofShell, Head (hidden via scale)
+    Grille, HeadlightL, HeadlightR
+    DoorUpperL, DoorLowerL, ExhaustPipeL (left arm)
+    DoorUpperR, DoorLowerR, ExhaustPipeR (right arm)
+    TrunkLeft, SideSkirtL, RearWheelL (left leg)
+    TrunkRight, SideSkirtR, RearWheelR (right leg)
+    FrontWheelL, FrontWheelR, FenderL, FenderR (shoulders)
+    Select (selective bloom wrapper for neon meshes)
+    NeonEffectsGroup (energy rings, hidden in car mode, fade in during transform)
 ```
 
 ### 4. Phased timeline with 20-30% overlap
